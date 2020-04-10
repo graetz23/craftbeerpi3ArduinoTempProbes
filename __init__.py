@@ -6,7 +6,7 @@
 # Christian
 # graetz23@gmail.com
 # created 20200403
-# version 20200403
+# version 20200410
 #
 # MIT License
 #
@@ -70,9 +70,19 @@ def getYesNo():
 
 class PSSM_ClientThread (threading.Thread):
 
-    value = float( 0 )
+    value = float( 0 ) # no idea why, but CPB3 seems to need this var as float??
 
-    def __init__(self, id, name, port, baud, acmd):
+    XML_ANLG0 = None
+    XML_ANLG1 = None
+    XML_ANLG2 = None
+    XML_ANLG3 = None
+    XML_ANLG4 = None
+    XML_ANLG5 = None
+
+    DELAY = 0.10
+
+    # def __init__(self, id, name, port, baud, acmd):
+    def __init__(self, id, name, port, baud):
 
         threading.Thread.__init__(self)
 
@@ -80,56 +90,100 @@ class PSSM_ClientThread (threading.Thread):
         self.NAME = name
         self.PORT = "/dev/" + port
         self.BAUD = baud
-        self.ACMD = acmd
         self.PSSM_XML = PSSM_XML( )
         self.PSSM = PSSM_Client( self.PORT, self.BAUD )
-        time.sleep(0.25) # give arduino some time
+        time.sleep( self.DELAY * 2 )
         self.value = float( 1 )
         self.runnig = True
 
     def shutdown(self):
-        # if self.PSSM.SERIAL.isOpen( ):
-        #      self.PSSM.writeID( self.PSSM.CMDS.STOP )
-        #      time.sleep(0.25)
-        #      self.PSSM.SERIAL.close( )
-        #      time.sleep(0.25)
-        pass
+        if self.PSSM.SERIAL.isOpen( ):
+             self.PSSM.writeID( self.PSSM.CMDS.STOP )
+             time.sleep( self.DELAY * 2 )
+             self.PSSM.SERIAL.close( )
+             time.sleep( self.DELAY )
+        self.runnig = False
 
     def stop(self):
-        # if self.PSSM.SERIAL.isOpen( ):
-        #      self.PSSM.writeID( self.PSSM.CMDS.STOP )
-        #      time.sleep(0.25)
-        #      self.PSSM.SERIAL.close( )
-        #      time.sleep(0.25)
+        if self.PSSM.SERIAL.isOpen( ):
+             self.PSSM.writeID( self.PSSM.CMDS.STOP )
+             time.sleep( self.DELAY * 2 )
+             self.PSSM.SERIAL.close( )
+             time.sleep( self.DELAY )
         self.runnig = False
 
     def run(self):
-        i = 0
-        time.sleep(0.5)
         self.PSSM.writeID( self.PSSM.CMDS.RMD1 )
-        time.sleep(0.5)
-        while True:
+        # self.PSSM.writeID( self.PSSM.CMDS.RMD1.COPY( ) ) # PROTOTYP pattern
+        time.sleep( self.DELAY )
+        self.ANSWER = self.PSSM.getANSWER( ) # <A0>9.567</A0>
+        time.sleep( self.DELAY * 2 )
+        while self.runnig:
             # try:
-            # if self.PSSM.SERIAL.isOpen( ):
-            self.PSSM.writeID( self.ACMD )
-            time.sleep(1)
-            xml = self.PSSM.getANSWER( ) # <A0>9.567</A0>
-            pssm_msg = self.PSSM_XML.bake( xml ) # bake object
-            temp = pssm_msg.DATA # 9.567
-            self.value = float( temp )
-            # else:
-            #     self.value = 0 # error value ...
-            # except:
-            #     pass
-            time.sleep( 4 )
+            # do some run mode RECOVERY
+            self.PSSM.writeID( self.PSSM.CMDS.STAT ) # <10>
+            time.sleep( self.DELAY )
+            self.STATUS = self.PSSM.getANSWER( ) # <RMD1/>
+            time.sleep( self.DELAY )
+            if self.STATUS != self.PSSM.STATES.MODE1.TAG:
+                self.PSSM.writeID( self.PSSM.CMDS.RMD1 ) # <11>
+                time.sleep( self.DELAY )
+                self.ANSWER = self.PSSM.getANSWER( ) # <AKNW/>
+                time.sleep( self.DELAY * 2 )
+
+            # CYCLIC stress arduino for sensor values; here analog values
+            self.PSSM.writeID( self.PSSM.HARDWARE.ANLG0 ) # <40>
+            time.sleep( self.DELAY )
+            self.XML_ANLG0 = self.PSSM.getANSWER( ) # <A0>9.567</A0>
+            time.sleep( self.DELAY )
+            self.PSSM.writeID( self.PSSM.HARDWARE.ANLG1 ) # <41>
+            time.sleep( self.DELAY )
+            self.XML_ANLG1 = self.PSSM.getANSWER( ) # <A1>9.567</A1>
+            time.sleep( self.DELAY )
+            self.PSSM.writeID( self.PSSM.HARDWARE.ANLG2 ) # <42>
+            time.sleep( self.DELAY )
+            self.XML_ANLG2 = self.PSSM.getANSWER( ) # <A2>9.567</A2>
+            time.sleep( self.DELAY )
+            self.PSSM.writeID( self.PSSM.HARDWARE.ANLG3 ) # <43>
+            time.sleep( self.DELAY )
+            self.XML_ANLG3 = self.PSSM.getANSWER( ) # <A3>9.567</A3>
+            time.sleep( self.DELAY )
+            self.PSSM.writeID( self.PSSM.HARDWARE.ANLG4 ) # <44>
+            time.sleep( self.DELAY )
+            self.XML_ANLG4 = self.PSSM.getANSWER( ) # <A4>9.567</A4>
+            time.sleep( self.DELAY )
+            self.PSSM.writeID( self.PSSM.HARDWARE.ANLG5 ) # <45>
+            time.sleep( self.DELAY )
+            self.XML_ANLG5 = self.PSSM.getANSWER( ) # <A5>9.567</A5>
+            time.sleep( self.DELAY )
+
+    def getData(self, acmd):
+        temp = float( 1 )
+        data = float( 1 )
+        # select which to bake ..
+        if acmd.TAG == self.PSSM.HARDWARE.ANLG0.TAG:
+            pssm_msg = self.PSSM_XML.bake( self.XML_ANLG0 ) # bake object
+        elif acmd.TAG == self.PSSM.HARDWARE.ANLG1.TAG:
+            pssm_msg = self.PSSM_XML.bake( self.XML_ANLG1 ) # bake object
+        elif acmd.TAG == self.PSSM.HARDWARE.ANLG2.TAG:
+            pssm_msg = self.PSSM_XML.bake( self.XML_ANLG2 ) # bake object
+        elif acmd.TAG == self.PSSM.HARDWARE.ANLG3.TAG:
+            pssm_msg = self.PSSM_XML.bake( self.XML_ANLG3 ) # bake object
+        elif acmd.TAG == self.PSSM.HARDWARE.ANLG4.TAG:
+            pssm_msg = self.PSSM_XML.bake( self.XML_ANLG4 ) # bake object
+        elif acmd.TAG == self.PSSM.HARDWARE.ANLG5.TAG:
+            pssm_msg = self.PSSM_XML.bake( self.XML_ANLG5 ) # bake object
+        else:
+            pssm_msg = PSSM_Data( "AX", "-1" )
+        temp = pssm_msg.DATA # 9.567
+        data = float( temp )
+        return data
 
 @cbpi.sensor
-class ArduinoTempSensors(SensorPassive):
+class ArduinoTempProbes(SensorPassive):
     sensor_name = Property.Select( "arduino's analog port", genArduinoAnalogPorts(), description="Select the the analog port to read out NTC or PTC probes.")
     sensor_baud = Property.Select( "arduino's baud rate", genBaudRate(), description="Select the baud rate defined in your arduino program.")
     sensor_port = Property.Select( "arduino's /dev/ttyACM?", searchTTYACM(), description="Possible devices where an arduino is connected; if empty, no arduino connected.")
-    #sensor_actv = Property.Select( "System Temperature", getYesNo(), description="Select to add CBP's system temperature or not.")
-    #sensor_strt = Property.Select( "Startup Message", getYesNo(), description="Select to send the start up message: \"CBP3SerialSensors\"; to let arduino recognizing a starting point for data processing.")
 
     PSSM_Message_Resolver = None
     ACMD = None
@@ -140,14 +194,30 @@ class ArduinoTempSensors(SensorPassive):
         pssm_MSG_RESOLVER = PSSM_Message_Resolver( )
         self.ACMD = pssm_MSG_RESOLVER.tryBuildFromAll( self.sensor_name )
 
-        self.t = PSSM_ClientThread(self.id, self.sensor_name, self.sensor_port, self.sensor_baud, self.ACMD)
-        time.sleep(0.25) # let time to set up internal thread for reading serial
+        sensor_port_no = int( self.sensor_port.replace("ttyACM", "") )# => {0,1,..}
 
-        # def shutdown():
-        #     shutdown.cb.shutdown()
-        # shutdown.cb = self.t
+        pssm_Client = None
 
-        self.t.start()
+        # if there is already a TASK running the that serial device, get it
+        if 'pssm_Clients' in globals( ):
+            noOfClients = len( pssm_Clients )
+            if noOfClients - 1 >= sensor_port_no :
+                pssm_Client = pssm_Clients[ sensor_port_no ] # <= existing client for ttyACM{0,1,..}
+
+        if pssm_Client == None :
+            global pssm_Clients
+            pssm_Clients = []
+            pssm_Client = PSSM_ClientThread(self.id, self.sensor_name, self.sensor_port, self.sensor_baud )
+            pssm_Clients.append( pssm_Client )
+            self.t = pssm_Client
+            # def shutdown():
+            #     shutdown.cb.shutdown()
+            # shutdown.cb = self.t
+            self.t.start( ) # start thread for me and others
+        else:
+            self.t = pssm_Client # should be running already started by some other
+
+        # TODO if pssm_Client is still None, something is wrong, break down
 
     def stop(self):
         try:
@@ -157,8 +227,8 @@ class ArduinoTempSensors(SensorPassive):
 
     def read(self):
         if self.get_config_parameter("unit", "C") == "C":
-            self.data_received(round(self.t.value, 2))
-            #self.data_received(round(4.2342, 2))
+            result = self.t.getData( self.ACMD )
+            self.data_received( round( result, 2 ) )
         else:
-            self.data_received(round(9.0 / 5.0 * self.t.value + 32, 2))
-            #self.data_received(round(9.0 / 5.0 * 4.2342 + 32, 2))
+            result = self.t.getData( self.ACMD )
+            self.data_received( round( 9.0 / 5.0 * result + 32, 2 ) )

@@ -59,7 +59,7 @@ class PSSM_Serial_Thread (threading.Thread):
                 self.READ = self.PSSM.SERIAL.reading( ) # read serial data only
             except:
                 pass
-            time.sleep(0.01) # obvious useless ??
+            #time.sleep(0.01) # obvious useless ??
 
     # Decoupling from speedy method; while REQUEST / RESPONSE things, MEMENTO
     # carries ALWAYS the received RESPONSE for the REQUEST, if the CLIENT is
