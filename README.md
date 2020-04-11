@@ -8,7 +8,11 @@ The CraftBeerPi3 Arduino Temperature Probes (CBP3ATP) plugin connects via serial
 
 For the current setup a usual _arduino leonardo_ board with six analog inputs, and up to six _Negative Temperature Coefficient (NTC)_ cable probes are used. The arduino project: [Arduino Serial State Temperature Probes](https://github.com/graetz23/ArduinoSerialStateTempProbes) can be flashed out of the box.
 
-In [CraftBeerPi3](https://github.com/Manuel83/craftbeerpi3) you place this plugin to: _craftbeerpi3/modules/plugins/_ by *git clone https://github.com/graetz23/craftbeerpi3ArduinoTempProbes* or download / unzip it from the [release page](https://github.com/graetz23/craftbeerpi3ArduinoTempProbes/releases).  
+In [CraftBeerPi3](https://github.com/Manuel83/craftbeerpi3) you place this plugin to:
+
+ _craftbeerpi3/modules/plugins/_ by *git clone https://github.com/graetz23/craftbeerpi3ArduinoTempProbes*
+
+ or download / unzip it from the [release page](https://github.com/graetz23/craftbeerpi3ArduinoTempProbes/releases).  
 
 Connect the arduino via an USB cable to the raspberry running CBP3. It should create a device called_ ttyACM0, ttyACM1, .., ttyACMX; you can check by bash command: _ls /dev_ or _ls /dev | grep ACM_.
 
