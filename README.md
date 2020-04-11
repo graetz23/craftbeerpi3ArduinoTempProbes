@@ -38,7 +38,7 @@ Here is a preview on the resolution of the temperature values for a _change of a
 
 ![ArduinoTempProbes config menu](CBP3ATP_resolution.png)
 
-Another preview is about _10 hours_ of the temperature values, where the NTC probe was on the table on some black ground. At around _15 pm_ the sun was heating up the probe:
+Another preview is about _10 hours_ of temperature values, where the NTC probe was on the table on some black ground. At around _15 pm_ direct sunlight was heating up the probe until aroung _17 pm_:
 
 ![ArduinoTempProbes config menu](CBP3ATP_daylight.png)
 
