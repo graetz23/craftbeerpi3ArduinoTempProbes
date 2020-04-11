@@ -2,13 +2,13 @@
 
 ### Introduction
 
-The CraftBeerPi3 Arduino Temperature Probes (CBP3ATP) plugin connects via serial to an arduino microcontroller and reads out temperature probes.
+The **CraftBeerPi3 Arduino Temperature Probes (CBP3ATP)** plugin connects via serial to an arduino microcontroller board and reads out temperature probes periodically.
 
 ### Hardware Setup
 
 For the current setup a usual _arduino UNO or leonardo_ board with six analog inputs, and **up to six _Negative Temperature Coefficient (NTC)_ cable probes** are used. The **arduino project: [Arduino Serial State Temperature Probes](https://github.com/graetz23/ArduinoSerialStateTempProbes)** can be flashed out of the box.
 
-In [CraftBeerPi3](https://github.com/Manuel83/craftbeerpi3) you place this plugin to _~/craftbeerpi3/modules/plugins/_ by:
+In [CraftBeerPi3](https://github.com/Manuel83/craftbeerpi3) you place this plugin to **_~/craftbeerpi3/modules/plugins/_** by:
 
 **git clone https://github.com/graetz23/craftbeerpi3ArduinoTempProbes**
 
@@ -53,13 +53,13 @@ I created this plugin (and the arduino project), while I hope to have several ad
     - **adding _any other_ sensor (or actor)** to arduino,
     - having electronics on a _5 V_ basis with more _milliamps_ out of the box.
 
-CBP3ATP is written in [python 2.7](https://www.python.org/) and _strongly_ depended on: [cool Python Serial State Machine (coolPSSM)](https://github.com/graetz23/coolPythonSerialStateMachine), which is included in this repository for simplification; [coolPSSM.py](https://github.com/graetz23/coolPythonSerialStateMachine/blob/master/coolPSSM.py).
+CBP3ATP is written in [python 2.7](https://www.python.org/) and _strongly_ dependent on: [cool Python Serial State Machine (coolPSSM)](https://github.com/graetz23/coolPythonSerialStateMachine), which is included in this repository for simplification; [coolPSSM.py](https://github.com/graetz23/coolPythonSerialStateMachine/blob/master/coolPSSM.py).
 
 Everything was coded using:
 
-  - [**CraftBeerPi3**](https://github.com/Manuel83/craftbeerpi3),
-  - [**python 2.7**](https://www.python.org/),
-  - [**arduino**](https://www.arduino.cc/),
+  - [**CraftBeerPi3**](https://github.com/Manuel83/craftbeerpi3) home brewing automation,
+  - [**python 2.7**](https://www.python.org/) programming language,
+  - [**arduino**](https://www.arduino.cc/) project,
   - [**arduino IDE**](https://www.arduino.cc/en/main/software) for _serial debugging_,
   - [**arduino Makefile**](https://github.com/sudar/Arduino-Makefile) for automated building,
   - [**atom**](https://atom.io/) editor,
