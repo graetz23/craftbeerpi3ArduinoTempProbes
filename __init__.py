@@ -1,12 +1,14 @@
 #
 # craftbeerpi3ArduinoTempProbes (CBP3ATP)
 #
-# Connects via serial to any arduino and reads out an analog temperature cable probe.
+# Connects via serial to any arduino and reads out six analog temperature cable
+# probe. The necessary arduino project for serving the probes:
+# https://github.com/graetz23/ArduinoSerialStateTempProbes
 #
 # Christian
 # graetz23@gmail.com
 # created 20200403
-# version 20200410
+# version 20200411
 #
 # MIT License
 #
