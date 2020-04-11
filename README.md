@@ -47,6 +47,20 @@ I created this plugin (and the arduino project), while I hope to have several ad
     - **adding _any other_ sensor (or actor)** to arduino,
     - having electronics on a _5 V_ basis with more _milliamps_ out of the box.
 
+CBP3ATP is written in [python 2.7](https://www.python.org/) and _strongly_ depended on: [cool Python Serial State Machine (coolPSSM)](https://github.com/graetz23/coolPythonSerialStateMachine), which is included in this repository for simplification; [coolPSSM.py](https://github.com/graetz23/coolPythonSerialStateMachine/blob/master/coolPSSM.py).
+
+Everything was coded using:
+
+  - [**CraftBeerPi3**](ttps://github.com/Manuel83/craftbeerpi3),
+  - [**python 2.7**](https://www.python.org/),
+  - [**arduino**](https://www.arduino.cc/),
+  - [**arduino Makefile**](https://github.com/sudar/Arduino-Makefile) for automated building,
+    - [**arduino IDE**](https://www.arduino.cc/en/main/software) for _serial debugging_,
+  - [**atom**](https://atom.io/) editor,
+  - [**Gnome**](https://www.gnome.org/) as window manager,
+  - [**debian**](https://www.debian.org/) GNU/Linux,
+  - and [**raspbian**](https://www.raspbian.org/) GNU/Linux
+
 have fun :-)
 
 ## ChangeLog
