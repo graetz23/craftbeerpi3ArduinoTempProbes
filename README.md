@@ -24,7 +24,9 @@ You can configure the following:
   - select the _analog port: A0,A1,..,A5_ of your arduino; I took _ANLG0_, which is A0,
   - select the _serial device_ arduino has created by plugin it into the raspberry pi.
 
-That's all, afterwards the sensor inits with a _zero_ value, and the NTC probe, connected to arduino, is read out cyclic. You can see the _builtin LEDs TX \& RX_ flickering periodically.
+That's all.
+
+Afterwards the sensor inits with a _zero_ value, and the NTC probe, connected to arduino, is read out cyclic. You can see the _builtin LEDs TX \& RX_ flickering periodically.
 
 ### Preview
 
@@ -51,11 +53,11 @@ CBP3ATP is written in [python 2.7](https://www.python.org/) and _strongly_ depen
 
 Everything was coded using:
 
-  - [**CraftBeerPi3**](ttps://github.com/Manuel83/craftbeerpi3),
+  - [**CraftBeerPi3**](https://github.com/Manuel83/craftbeerpi3),
   - [**python 2.7**](https://www.python.org/),
   - [**arduino**](https://www.arduino.cc/),
+  - [**arduino IDE**](https://www.arduino.cc/en/main/software) for _serial debugging_,
   - [**arduino Makefile**](https://github.com/sudar/Arduino-Makefile) for automated building,
-    - [**arduino IDE**](https://www.arduino.cc/en/main/software) for _serial debugging_,
   - [**atom**](https://atom.io/) editor,
   - [**Gnome**](https://www.gnome.org/) as window manager,
   - [**debian**](https://www.debian.org/) GNU/Linux,
