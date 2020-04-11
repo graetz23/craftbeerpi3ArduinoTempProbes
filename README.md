@@ -43,7 +43,7 @@ Another preview is about _10 hours_ of temperature values, where the NTC probe w
 ![ArduinoTempProbes config menu](CBP3ATP_daylight.png)
 
 ### Trouble shooting
-_.. will be written / extended by reported of user problems._
+_.. will be written / extended by reported user problems._
 
 ### Remarks
 If you do not have _some_ NTC around, you can try this project even without, due to the fact that an _open_ analog input is _floating_; you will get random temperature values.
